@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.t-display-xxl {
+  font-size: 96px;
+  font-weight: 300;
+  line-height: 1;
+}
+.t-display-xl {
+  font-size: 70px;
+  font-weight: 300;
+  line-height: 1;
+}
+.t-display-lg {
+  font-size: 55px;
+  font-weight: 300;
+  line-height: 1.16;
+}
+.t-display-md {
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 1.14;
+}
+.t-heading-xl {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.28;
+}
+.t-heading-lg {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.14;
+}
+.t-heading-md {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.t-heading-sm {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.t-body-lg {
+  font-size: 18px;
+  line-height: 1.56;
+}
+.t-body-md {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.t-caption {
+  font-size: 14px;
+  line-height: 1.49;
+}
+.t-eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
