@@ -5,14 +5,13 @@
 
 // Brand
 export const BRAND_NAME = "Takhton";
-export const BRAND_TAGLINE = "Regal Threads. Modern Soul.";
-// Use a placeholder logo for now
-export const BRAND_LOGO =
-  "https://placehold.co/100x100/1a365d/ffd700/png?text=T&font=playfair-display";
+export const BRAND_TAGLINE =
+  "A kingdom of style. Where velvet whispers power and every stitch wears the crown.";
+export const BRAND_LOGO = "/takhton-logo.png";
 
 // Currency
-export const CURRENCY = "INR";
-export const CURRENCY_SYMBOL = "₹";
+export const CURRENCY = "USD";
+export const CURRENCY_SYMBOL = "$";
 
 // Shipping
 export const FREE_SHIPPING_THRESHOLD = 150;
@@ -22,26 +21,31 @@ export const EXPRESS_SHIPPING_COST = 25;
 // Pagination
 export const PRODUCTS_PER_PAGE = 12;
 
-// Product categories
+// Product categories (Takhton is menswear only — categorised by garment type)
 export const CATEGORIES = [
-  { id: "men", slug: "men", name: "Men", description: "Contemporary menswear" },
   {
-    id: "women",
-    slug: "women",
-    name: "Women",
-    description: "Elegant womenswear",
+    id: "shirts",
+    slug: "shirts",
+    name: "Shirts",
+    description: "Tailored shirts crafted for the modern king",
   },
   {
-    id: "accessories",
-    slug: "accessories",
-    name: "Accessories",
-    description: "Refined accents",
+    id: "t-shirts",
+    slug: "t-shirts",
+    name: "T-Shirts",
+    description: "Heavyweight tees with regal embellishments",
   },
   {
-    id: "limited",
-    slug: "limited",
-    name: "Limited Edition",
-    description: "Exclusive drops",
+    id: "pants",
+    slug: "pants",
+    name: "Pants",
+    description: "Trousers and chinos with palace tailoring",
+  },
+  {
+    id: "outerwear",
+    slug: "outerwear",
+    name: "Outerwear",
+    description: "Jackets and suits for ceremonial presence",
   },
 ] as const;
 

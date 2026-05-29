@@ -11,9 +11,11 @@ export interface PriceDisplayProps {
   originalPrice?: number;
   size?: "sm" | "md" | "lg";
   className?: string;
+  /** When true, force the muted/strikethrough color appropriate for dark surfaces. Defaults to true (the brand surface). */
+  onDark?: boolean;
 }
 
-const sizeStyles = {
+const sizeStyles: Record<NonNullable<PriceDisplayProps["size"]>, string> = {
   sm: "text-sm",
   md: "text-base",
   lg: "text-lg",
@@ -24,22 +26,33 @@ export function PriceDisplay({
   originalPrice,
   size = "md",
   className,
+  onDark = true,
 }: PriceDisplayProps) {
-  const hasDiscount = originalPrice && originalPrice > price;
+  const hasDiscount = originalPrice !== undefined && originalPrice > price;
+
+  // Sale price emphasis: gold on dark surfaces, deep gold on light surfaces.
+  const salePriceColor = onDark ? "text-[#dfc38a]" : "text-[#c5a880]";
+  const strikeColor = onDark ? "text-[#f3ebd8]/45" : "text-[#030c1b]/40";
 
   return (
     <div className={cn("flex flex-wrap items-baseline gap-2", className)}>
       <span
         className={cn(
-          "font-medium",
+          "font-medium tabular-nums",
           sizeStyles[size],
-          hasDiscount && "text-red-600",
+          hasDiscount && salePriceColor,
         )}
       >
         {formatPrice(price)}
       </span>
       {hasDiscount && (
-        <span className={cn("text-gray-400 line-through", sizeStyles[size])}>
+        <span
+          className={cn(
+            "tabular-nums line-through",
+            sizeStyles[size],
+            strikeColor,
+          )}
+        >
           {formatPrice(originalPrice)}
         </span>
       )}

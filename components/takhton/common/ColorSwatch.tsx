@@ -11,6 +11,7 @@ export interface ColorSwatchProps {
   selected: string;
   onChange: (colorName: string) => void;
   disabled?: boolean;
+  variant?: "dark" | "light";
 }
 
 export function ColorSwatch({
@@ -18,7 +19,15 @@ export function ColorSwatch({
   selected,
   onChange,
   disabled,
+  variant = "dark",
 }: ColorSwatchProps) {
+  const labelActive =
+    variant === "dark" ? "text-[#dfc38a]" : "text-[#030c1b]";
+  const labelInactive =
+    variant === "dark" ? "text-[#f3ebd8]/55" : "text-[#030c1b]/55";
+  const ringSelected =
+    variant === "dark" ? "ring-[#dfc38a]" : "ring-[#030c1b]";
+
   return (
     <div className="flex flex-wrap gap-3">
       {colors.map((color) => {
@@ -34,31 +43,27 @@ export function ColorSwatch({
             aria-pressed={isSelected}
             className={cn(
               "group relative flex flex-col items-center gap-2",
-              "focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#dfc38a] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
               disabled && "cursor-not-allowed opacity-50",
             )}
           >
             <span
               className={cn(
                 "h-8 w-8 rounded-full transition-all duration-200",
-                "border-2",
-                isSelected
-                  ? "border-black scale-110"
-                  : "border-transparent hover:border-gray-300",
+                "ring-1 ring-[#dfc38a]/20",
+                isSelected &&
+                  cn("ring-2 ring-offset-2 ring-offset-transparent scale-110", ringSelected),
               )}
               style={{ backgroundColor: color.hex }}
             />
             <span
               className={cn(
-                "text-xs transition-colors",
-                isSelected ? "text-black font-medium" : "text-gray-500",
+                "text-[11px] uppercase tracking-wider transition-colors",
+                isSelected ? `${labelActive} font-semibold` : labelInactive,
               )}
             >
               {color.name}
             </span>
-            {isSelected && (
-              <span className="absolute -top-1 -right-1 h-3 w-3 bg-black rounded-full border-2 border-white" />
-            )}
           </button>
         );
       })}

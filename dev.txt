@@ -1,0 +1,1 @@
+kiro-cli chat --resume-id 4466d9ff-19d9-40a7-b80d-8675578cc578

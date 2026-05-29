@@ -107,3 +107,22 @@ export const UserProfileSchema = z.object({
 })
 
 export type UserProfileValues = z.infer<typeof UserProfileSchema>
+
+// Contact form schema
+export const ContactFormSchema = z.object({
+  name: z
+    .string()
+    .min(2, 'Please enter your full name')
+    .max(80, 'Name is too long'),
+  email: z.string().email('Please enter a valid email address'),
+  subject: z
+    .string()
+    .min(3, 'Please enter a subject')
+    .max(120, 'Subject is too long'),
+  message: z
+    .string()
+    .min(10, 'Message must be at least 10 characters')
+    .max(2000, 'Message is too long'),
+})
+
+export type ContactFormValues = z.infer<typeof ContactFormSchema>

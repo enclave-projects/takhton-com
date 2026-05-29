@@ -2,69 +2,204 @@
 
 @theme inline {
   --font-sans: var(--font-inter);
-  --color-background: #ffffff;
-  --color-foreground: #000000;
+  --font-mono: var(--font-geist-mono);
+
+  /* Regal Color Palette */
+  --color-canvas-night: #030c1b;
+  --color-canvas-night-elevated: #05142c;
+  --color-canvas-light: #ffffff;
+  --color-canvas-cream: #f3ebd8; /* Warm luxury cream */
+  --color-surface-elevated-dark: #081d3d;
+
+  /* Accent Gold & Royal Blue */
+  --color-gold-light: #f3ebd8;
+  --color-gold-accent: #dfc38a; /* Soft royal gold */
+  --color-gold-deep: #c5a880;
+  --color-royal-blue: #030c1b;
+  --color-royal-blue-light: #0d2142;
+
+  /* Standard mappings */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-xs: 4px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-pill: 9999px;
+  --radius: 0.5rem;
 }
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #030c1b;
+  --primary-foreground: #dfc38a;
+  --secondary: #f3ebd8;
+  --secondary-foreground: #030c1b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #dfc38a;
+  --accent-foreground: #030c1b;
+  --destructive: #ef4444;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #dfc38a;
+  --radius: 0.5rem;
 }
 
-.t-display-xxl {
-  font-size: 96px;
-  font-weight: 300;
-  line-height: 1;
+.dark {
+  --background: #030c1b;
+  --foreground: #f3ebd8;
+  --card: #05142c;
+  --card-foreground: #f3ebd8;
+  --popover: #05142c;
+  --popover-foreground: #f3ebd8;
+  --primary: #dfc38a;
+  --primary-foreground: #030c1b;
+  --secondary: #0d2142;
+  --secondary-foreground: #f3ebd8;
+  --muted: #0d2142;
+  --muted-foreground: #a1a1aa;
+  --accent: #dfc38a;
+  --accent-foreground: #030c1b;
+  --destructive: #ef4444;
+  --border: #0d2142;
+  --input: #0d2142;
+  --ring: #dfc38a;
+  --radius: 0.5rem;
 }
-.t-display-xl {
-  font-size: 70px;
-  font-weight: 300;
-  line-height: 1;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  html {
+    @apply font-sans;
+  }
 }
-.t-display-lg {
-  font-size: 55px;
-  font-weight: 300;
-  line-height: 1.16;
+
+@layer components {
+  /* Typography Scale */
+  .t-display-xxl {
+    font-size: 96px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 2.4px;
+  }
+
+  .t-display-xl {
+    font-size: 70px;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .t-display-lg {
+    font-size: 55px;
+    font-weight: 300;
+    line-height: 1.16;
+  }
+
+  .t-display-md {
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1.14;
+  }
+
+  .t-heading-xl {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.28;
+    letter-spacing: 0.42px;
+  }
+
+  .t-heading-lg {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.14;
+    letter-spacing: 0.36px;
+  }
+
+  .t-heading-md {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.3px;
+  }
+
+  .t-heading-sm {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  .t-body-lg {
+    font-size: 18px;
+    line-height: 1.56;
+  }
+
+  .t-body-md {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .t-caption {
+    font-size: 14px;
+    line-height: 1.49;
+  }
+
+  .t-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .btn-pill {
+    @apply rounded-none px-8 py-3.5 font-medium transition-all duration-300 tracking-wider text-xs uppercase border;
+  }
 }
-.t-display-md {
-  font-size: 48px;
-  font-weight: 300;
-  line-height: 1.14;
-}
-.t-heading-xl {
-  font-size: 28px;
-  font-weight: 500;
-  line-height: 1.28;
-}
-.t-heading-lg {
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.14;
-}
-.t-heading-md {
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.4;
-}
-.t-heading-sm {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.25;
-}
-.t-body-lg {
-  font-size: 18px;
-  line-height: 1.56;
-}
-.t-body-md {
-  font-size: 16px;
-  line-height: 1.5;
-}
-.t-caption {
-  font-size: 14px;
-  line-height: 1.49;
-}
-.t-eyebrow {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+
+@media (max-width: 768px) {
+  .t-display-xxl {
+    font-size: 56px;
+    letter-spacing: 1.4px;
+  }
+
+  .t-display-xl {
+    font-size: 44px;
+  }
+
+  .t-display-lg {
+    font-size: 36px;
+  }
+
+  .t-display-md {
+    font-size: 32px;
+  }
 }

@@ -7,37 +7,41 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProductGrid } from "@/components/takhton/product/ProductGrid";
-import { products, categories } from "@/lib/data";
-
-export interface ShopPageProps {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
+import { categories, products } from "@/lib/data";
+import { COMMON_COLORS, SIZES } from "@/lib/constants";
 
 export default function ShopPage() {
-  // In a real app, we'd filter based on searchParams
-  // For now, we'll show all products
+  // In a real app, we'd filter based on searchParams.
+  // For now, we show all products.
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#030c1b] text-[#f3ebd8]">
       {/* Page Header */}
-      <div className="border-b border-gray-200">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="border-b border-[#dfc38a]/15 bg-[#030c1b]">
+        <div className="mx-auto max-w-[1600px] px-4 py-10 sm:px-6 lg:px-12 lg:py-14">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <h1 className="t-heading-xl">All Products</h1>
-              <p className="text-sm text-gray-500 mt-1">
-                {products.length} products
+              <p className="t-eyebrow mb-3 text-[#dfc38a]">The Collection</p>
+              <h1 className="font-serif text-4xl uppercase tracking-wide text-[#f3ebd8] md:text-5xl">
+                All Pieces
+              </h1>
+              <p className="mt-2 text-xs uppercase tracking-wider text-[#f3ebd8]/55">
+                {products.length} pieces
               </p>
             </div>
 
             {/* Sort Dropdown */}
             <div className="relative">
+              <label htmlFor="shop-sort" className="sr-only">
+                Sort products by
+              </label>
               <select
+                id="shop-sort"
+                name="sort"
                 className={cn(
-                  "appearance-none pl-4 pr-10 py-2 text-sm font-medium",
-                  "border border-gray-200 rounded-sm bg-white",
-                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-black",
-                  "cursor-pointer",
+                  "appearance-none border border-[#dfc38a]/30 bg-[#05142c] py-3 pr-12 pl-5 text-xs font-semibold uppercase tracking-wider text-[#f3ebd8]",
+                  "cursor-pointer transition-colors hover:border-[#dfc38a]",
+                  "focus:border-[#dfc38a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#dfc38a]",
                 )}
                 defaultValue="newest"
               >
@@ -46,112 +50,110 @@ export default function ShopPage() {
                 <option value="price-high">Price: High to Low</option>
                 <option value="name">Name A-Z</option>
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 pointer-events-none text-gray-400" />
+              <ChevronDown
+                aria-hidden="true"
+                className="pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2 text-[#dfc38a]"
+              />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="mx-auto max-w-[1600px] px-4 py-10 sm:px-6 lg:px-12">
+        <div className="flex flex-col gap-10 lg:flex-row">
           {/* Filter Sidebar - Desktop */}
-          <aside className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-24 space-y-8">
+          <aside className="hidden w-64 flex-shrink-0 lg:block">
+            <div className="sticky top-24 space-y-9 border border-[#dfc38a]/15 bg-[#05142c]/40 p-6">
               {/* Categories */}
-              <div>
-                <h3 className="text-sm font-medium mb-4">Categories</h3>
-                <div className="space-y-2">
+              <FilterGroup title="Categories">
+                <div className="space-y-3">
                   {categories.map((cat) => (
                     <label
                       key={cat.id}
-                      className="flex items-center gap-3 cursor-pointer group"
+                      className="group flex cursor-pointer items-center gap-3"
                     >
                       <input
                         type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-black focus:ring-black"
+                        name="category"
+                        value={cat.slug}
+                        className="h-4 w-4 cursor-pointer accent-[#dfc38a]"
                       />
-                      <span className="text-sm text-gray-600 group-hover:text-black transition-colors">
+                      <span className="text-sm text-[#f3ebd8]/75 transition-colors group-hover:text-[#dfc38a]">
                         {cat.name}
                       </span>
                     </label>
                   ))}
                 </div>
-              </div>
+              </FilterGroup>
 
               {/* Price Range */}
-              <div>
-                <h3 className="text-sm font-medium mb-4">Price Range</h3>
+              <FilterGroup title="Price Range">
                 <div className="space-y-4">
-                  <input type="range" min="0" max="1000" className="w-full" />
-                  <div className="flex justify-between text-sm text-gray-500">
+                  <label htmlFor="shop-price" className="sr-only">
+                    Price range
+                  </label>
+                  <input
+                    id="shop-price"
+                    name="price"
+                    type="range"
+                    min="0"
+                    max="1000"
+                    defaultValue="1000"
+                    className="w-full accent-[#dfc38a]"
+                  />
+                  <div className="flex justify-between text-xs text-[#f3ebd8]/65 tabular-nums">
                     <span>$0</span>
                     <span>$1000+</span>
                   </div>
                 </div>
-              </div>
+              </FilterGroup>
 
               {/* Sizes */}
-              <div>
-                <h3 className="text-sm font-medium mb-4">Size</h3>
+              <FilterGroup title="Size">
                 <div className="flex flex-wrap gap-2">
-                  {["XS", "S", "M", "L", "XL", "XXL"].map((size) => (
+                  {SIZES.map((size) => (
                     <button
                       key={size}
                       type="button"
                       className={cn(
-                        "px-3 py-1 text-xs font-medium border rounded-sm",
-                        "hover:border-black transition-colors",
-                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-black",
+                        "border border-[#dfc38a]/30 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#f3ebd8]/85 transition-colors",
+                        "hover:border-[#dfc38a] hover:text-[#dfc38a]",
+                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#dfc38a]",
                       )}
                     >
                       {size}
                     </button>
                   ))}
                 </div>
-              </div>
+              </FilterGroup>
 
               {/* Colors */}
-              <div>
-                <h3 className="text-sm font-medium mb-4">Color</h3>
-                <div className="flex flex-wrap gap-2">
-                  {["Black", "White", "Cream", "Navy", "Olive", "Camel"].map(
-                    (color) => (
-                      <button
-                        key={color}
-                        type="button"
-                        title={color}
-                        className={cn(
-                          "w-6 h-6 rounded-full border border-gray-200",
-                          "hover:scale-110 transition-transform",
-                          "focus:outline-none focus-visible:ring-2 focus-visible:ring-black",
-                        )}
-                        style={{
-                          backgroundColor:
-                            color === "Black"
-                              ? "#000"
-                              : color === "White"
-                                ? "#fff"
-                                : color === "Cream"
-                                  ? "#f5f5dc"
-                                  : color === "Navy"
-                                    ? "#1a1a2e"
-                                    : color === "Olive"
-                                      ? "#556b2f"
-                                      : "#c19a6b",
-                        }}
-                      />
-                    ),
-                  )}
+              <FilterGroup title="Color">
+                <div className="flex flex-wrap gap-3">
+                  {COMMON_COLORS.map((color) => (
+                    <button
+                      key={color.name}
+                      type="button"
+                      title={color.name}
+                      aria-label={`Filter by color ${color.name}`}
+                      className={cn(
+                        "h-7 w-7 rounded-full ring-1 ring-[#dfc38a]/30 transition-all",
+                        "hover:scale-110 hover:ring-2 hover:ring-[#dfc38a]",
+                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#dfc38a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#030c1b]",
+                      )}
+                      style={{ backgroundColor: color.hex }}
+                    />
+                  ))}
                 </div>
-              </div>
+              </FilterGroup>
 
-              {/* Apply Filters Button */}
+              {/* Apply Filters */}
               <button
                 type="button"
                 className={cn(
-                  "w-full py-3 text-sm font-medium rounded-full",
-                  "bg-black text-white hover:bg-gray-800 transition-colors",
-                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-black",
+                  "w-full border border-[#dfc38a] bg-[#dfc38a] py-3 text-xs font-bold uppercase tracking-wider text-[#030c1b]",
+                  "transition-colors hover:bg-[#f3ebd8]",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#dfc38a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#030c1b]",
                 )}
               >
                 Apply Filters
@@ -164,8 +166,9 @@ export default function ShopPage() {
             <button
               type="button"
               className={cn(
-                "w-full py-3 text-sm font-medium border rounded-sm",
-                "focus:outline-none focus-visible:ring-2 focus-visible:ring-black",
+                "w-full border border-[#dfc38a]/30 py-3 text-xs font-semibold uppercase tracking-wider text-[#dfc38a]",
+                "transition-colors hover:border-[#dfc38a] hover:bg-[#dfc38a]/5",
+                "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#dfc38a]",
               )}
             >
               Filters
@@ -177,26 +180,30 @@ export default function ShopPage() {
             <ProductGrid products={products} columns={4} />
 
             {/* Pagination */}
-            <div className="mt-12 flex justify-center">
-              <nav className="flex items-center gap-2" aria-label="Pagination">
+            <div className="mt-14 flex justify-center">
+              <nav
+                className="flex items-center gap-1"
+                aria-label="Pagination"
+              >
                 <Link
                   href="#"
-                  className="px-4 py-2 text-sm text-gray-500 hover:text-black disabled:opacity-50"
+                  className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#f3ebd8]/45"
                   aria-disabled="true"
+                  tabIndex={-1}
                 >
                   Previous
                 </Link>
                 <Link
                   href="#"
-                  className="px-4 py-2 text-sm font-medium bg-black text-white rounded-sm"
+                  className="border border-[#dfc38a] bg-[#dfc38a] px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#030c1b]"
                   aria-current="page"
                 >
                   1
                 </Link>
-                <span className="px-2 text-gray-400">...</span>
+                <span className="px-2 text-[#f3ebd8]/40">…</span>
                 <Link
                   href="#"
-                  className="px-4 py-2 text-sm text-gray-600 hover:text-black"
+                  className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#f3ebd8]/75 hover:text-[#dfc38a]"
                 >
                   Next
                 </Link>
@@ -205,6 +212,22 @@ export default function ShopPage() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+interface FilterGroupProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+function FilterGroup({ title, children }: FilterGroupProps) {
+  return (
+    <div>
+      <h3 className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-[#dfc38a]">
+        {title}
+      </h3>
+      {children}
     </div>
   );
 }
